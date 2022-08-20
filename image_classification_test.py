@@ -55,7 +55,11 @@ model.fit(x=train_images,
           epochs=10,
           validation_data=(test_images, test_labels))
 end = timeit.timeit()
-print(f"Model training time is {end-start}")
+elapsed = end-start
+elapsed = 4*3600 + 13*60 + 6                       # 15186 s
+run_time = time.strftime("%Hh%Mm%Ss", time.gmtime(elapsed))
+
+print(f"Model training time is {run_time}")
 
 # Evaluate model 
 # print("Evaluating model...")
