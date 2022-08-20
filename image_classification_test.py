@@ -13,7 +13,7 @@ The models/datasets in the exam are similar to the ones used in this script.
 """
 import tensorflow as tf
 from tensorflow.keras import datasets, layers
-import timeit
+import time
 
 # Check version of TensorFlow (exam requires a certain version)
 # See for version: https://www.tensorflow.org/extras/cert/Setting_Up_TF_Developer_Certificate_Exam.pdf 
@@ -48,18 +48,16 @@ model.compile(loss="sparse_categorical_crossentropy", # if labels aren't one-hot
               metrics=["accuracy"])
 
 # Fit model
-start = timeit.timeit()
+start = time.time()
 print("Training model...")
 model.fit(x=train_images,
           y=train_labels,
           epochs=10,
           validation_data=(test_images, test_labels))
-end = timeit.timeit()
-elapsed = end-start
-elapsed = 4*3600 + 13*60 + 6                       # 15186 s
-run_time = time.strftime("%Hh%Mm%Ss", time.gmtime(elapsed))
-
-print(f"Model training time is {run_time}")
+end = time.time()
+hours, rem = divmod(end-start, 3600)
+minutes, seconds = divmod(rem, 60)
+print("Model train time: {:0>2}:{:0>2}:{:05.2f}".format(int(hours),int(minutes),seconds))
 
 # Evaluate model 
 # print("Evaluating model...")
